@@ -40,7 +40,7 @@ function createInitialData() {
   const d2 = openDates[2] || getBuenosAiresDateString(2);
 
   return {
-    version: 1,
+    version: 2,
     settings: {
       brandName: 'Dual Barber',
       tagline: 'Tu estilo, nuestra prioridad.',
@@ -67,7 +67,7 @@ function createInitialData() {
       minNoticeMinutes: 60,
       cancelNoticeMinutes: 60,
       maxModifications: 4,
-      slotIntervalMinutes: 15,
+      slotIntervalMinutes: 30,
       bookingHorizonDays: 21,
       adminPin: process.env.ADMIN_PIN || '2026',
       hours: {

@@ -586,7 +586,7 @@ function renderStep3DateTime(container) {
       `;
     };
 
-    slotsHtml = renderGroup('Mediodía (11:00 — 14:45)', morning) + renderGroup('Tarde (15:00 — 20:00)', afternoon);
+    slotsHtml = renderGroup('Mediodía (11:00 — 14:30)', morning) + renderGroup('Tarde (15:00 — 19:30)', afternoon);
   }
 
   container.innerHTML = `

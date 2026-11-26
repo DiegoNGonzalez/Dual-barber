@@ -67,6 +67,13 @@ function ensureStore() {
   } else {
     try {
       storeCache = JSON.parse(fs.readFileSync(STORE_PATH, 'utf8'));
+      if ((storeCache.version || 1) < 2) {
+        if (storeCache.settings && storeCache.settings.slotIntervalMinutes === 15) {
+          storeCache.settings.slotIntervalMinutes = 30;
+        }
+        storeCache.version = 2;
+        saveStore(storeCache);
+      }
     } catch {
       storeCache = createInitialData();
       saveStore(storeCache);
@@ -253,7 +260,7 @@ function getAvailability(store, { date, serviceId, barberId = 'any', excludeBook
     return { date, closed: false, reason: 'No se pueden agendar fechas pasadas.', slots: [] };
   }
 
-  const interval = Math.max(15, Number(store.settings.slotIntervalMinutes || 15));
+  const interval = Math.max(15, Number(store.settings.slotIntervalMinutes || 30));
   const duration = Number(service.durationMinutes || 30);
   const minNotice = bypassNotice ? 0 : Number(store.settings.minNoticeMinutes || 60);
 
@@ -1048,6 +1055,7 @@ async function handleApi(req, res, parsedUrl) {
         'minNoticeMinutes',
         'cancelNoticeMinutes',
         'maxModifications',
+        'slotIntervalMinutes',
         'bookingHorizonDays',
         'hours',
       ];

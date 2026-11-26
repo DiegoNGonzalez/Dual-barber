@@ -28,7 +28,7 @@ export function createClientSeed() {
   const d2 = openDates[2] || addDays(d0, 2);
 
   return {
-    version: 1,
+    version: 2,
     settings: {
       brandName: 'Dual Barber',
       tagline: 'Tu estilo, nuestra prioridad.',
@@ -55,7 +55,7 @@ export function createClientSeed() {
       minNoticeMinutes: 60,
       cancelNoticeMinutes: 60,
       maxModifications: 4,
-      slotIntervalMinutes: 15,
+      slotIntervalMinutes: 30,
       bookingHorizonDays: 21,
       adminPin: '2026',
       hours: {
@@ -314,7 +314,17 @@ export function createClientSeed() {
 export function loadLocalStore() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if ((parsed.version || 1) < 2) {
+        if (parsed.settings && parsed.settings.slotIntervalMinutes === 15) {
+          parsed.settings.slotIntervalMinutes = 30;
+        }
+        parsed.version = 2;
+        saveLocalStore(parsed);
+      }
+      return parsed;
+    }
   } catch {
     // ignore
   }
@@ -404,7 +414,7 @@ export function localGetAvailability(store, { date, serviceId, barberId = 'any',
   const candidates = barberId === 'any' ? activeBarbers : activeBarbers.filter((b) => b.id === barberId);
   const now = getBuenosAiresNow();
   const minNotice = bypassNotice ? 0 : Number(store.settings.minNoticeMinutes || 60);
-  const interval = Number(store.settings.slotIntervalMinutes || 15);
+  const interval = Math.max(15, Number(store.settings.slotIntervalMinutes || 30));
   const duration = Number(service.durationMinutes || 30);
 
   const slots = [];
