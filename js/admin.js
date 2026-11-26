@@ -1013,6 +1013,19 @@ function renderConfigTab(container) {
           )}" min="0" step="15" />
         </div>
         <div class="form-field">
+          <label class="form-label">Intervalo entre turnos</label>
+          <select class="form-input" name="slotIntervalMinutes">
+            ${[15, 30, 45, 60]
+              .map(
+                (m) =>
+                  `<option value="${m}" ${
+                    Number(settings.slotIntervalMinutes || 30) === m ? 'selected' : ''
+                  }>Cada ${m} minutos</option>`
+              )
+              .join('')}
+          </select>
+        </div>
+        <div class="form-field">
           <label class="form-label">Máximo de modificaciones por cliente</label>
           <input class="form-input tabular-nums" type="number" name="maxModifications" value="${esc(
             settings.maxModifications
@@ -1181,6 +1194,7 @@ function renderConfigTab(container) {
       cashDiscountPercent: Number(fd.get('cashDiscountPercent')),
       minNoticeMinutes: Number(fd.get('minNoticeMinutes')),
       cancelNoticeMinutes: Number(fd.get('minNoticeMinutes')),
+      slotIntervalMinutes: Number(fd.get('slotIntervalMinutes') || 30),
       maxModifications: Number(fd.get('maxModifications')),
       whatsappPrimary: fd.get('whatsappPrimary'),
       whatsappPrimaryDisplay: fd.get('whatsappPrimaryDisplay'),
