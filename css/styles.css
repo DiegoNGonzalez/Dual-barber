@@ -526,11 +526,18 @@ section[id] {
   align-items: start;
 }
 
+.booking-layout > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .booking-panel {
   background-color: var(--bg-charcoal);
   border: 1px solid var(--border-dark);
   border-radius: var(--radius-md);
-  padding: clamp(1.4rem, 3vw, 2.2rem);
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Indicador de pasos */
@@ -732,28 +739,74 @@ section[id] {
   color: var(--ink-light-secondary);
 }
 
-/* Paso 3: Selector de fecha y horarios */
-.date-ribbon {
+/* Paso 3: Selector semanal de fecha y horarios */
+.week-picker {
+  margin-bottom: 1.5rem;
+}
+
+.week-nav {
   display: flex;
-  gap: 0.55rem;
-  overflow-x: auto;
-  padding-bottom: 0.65rem;
-  margin-bottom: 1.4rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-dark-strong) transparent;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.week-nav__title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink-light);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.week-nav__btn {
+  padding: 0.45rem 0.78rem;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-dark-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.week-nav__btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.week-nav__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.week-days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0.48rem;
+  width: 100%;
+}
+
+.week-picker__note {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--ink-light-muted);
 }
 
 .date-chip {
-  min-width: 74px;
-  padding: 0.75rem 0.6rem;
+  min-width: 0;
+  width: 100%;
+  padding: 0.72rem 0.3rem;
   border-radius: var(--radius-sm);
   background-color: var(--bg-surface);
   border: 1px solid var(--border-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
-  flex-shrink: 0;
+  justify-content: center;
+  gap: 0.14rem;
   transition: all var(--transition-fast);
 }
 
@@ -773,23 +826,23 @@ section[id] {
 }
 
 .date-chip__dow {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.8;
+  letter-spacing: 0.08em;
+  opacity: 0.82;
 }
 
 .date-chip__day {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 800;
   line-height: 1.1;
 }
 
 .date-chip__month {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
-  opacity: 0.75;
+  opacity: 0.78;
 }
 
 .slots-group {
@@ -1580,7 +1633,7 @@ section[id] {
 /* ---- Responsive Breakpoints ---- */
 @media (max-width: 1024px) {
   .booking-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .booking-summary {
@@ -1589,24 +1642,24 @@ section[id] {
 
   .services-grid,
   .reviews-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .team-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .google-summary-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.4rem;
   }
 
   .location-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1627,7 +1680,7 @@ section[id] {
   }
 
   .hero-strip__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hero-strip__item {
@@ -1637,11 +1690,11 @@ section[id] {
   }
 
   .steps-bar {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .barber-select-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .barber-option {
@@ -1660,11 +1713,11 @@ section[id] {
   .reviews-grid,
   .form-grid,
   .receipt-details {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .barber-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .barber-card__photo {
@@ -1673,10 +1726,49 @@ section[id] {
   }
 
   .hero-strip__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .lookup-form {
     flex-direction: column;
+  }
+
+  .booking-panel {
+    padding: 1.1rem;
+  }
+
+  .week-nav__title {
+    font-size: 0.78rem;
+  }
+
+  .week-nav__btn {
+    padding: 0.42rem 0.62rem;
+    font-size: 0.74rem;
+  }
+
+  .week-days-grid {
+    gap: 0.35rem;
+  }
+
+  .date-chip {
+    padding: 0.6rem 0.2rem;
+  }
+
+  .date-chip__day {
+    font-size: 1.08rem;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .booking-footer-nav {
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .booking-footer-nav .btn--primary,
+  .booking-footer-nav .btn--accent {
+    flex: 1;
   }
 }

@@ -540,16 +540,60 @@ function renderStep2Barber(container) {
   container.querySelector('#btn-step2-next').addEventListener('click', () => goToStep(3));
 }
 
-function renderStep3DateTime(container) {
+function getOpenWeeks() {
   const today = getBuenosAiresNow().dateStr;
   const horizon = Number(state.settings.bookingHorizonDays || 21);
-  const dates = [];
+  const weeksMap = new Map();
+
   for (let i = 0; i < horizon; i++) {
     const dt = addDays(today, i);
     const parts = getDateChipParts(dt);
     const dayCfg = state.settings.hours[String(parts.dow)];
-    dates.push({ dateStr: dt, ...parts, open: Boolean(dayCfg && dayCfg.open) });
+    if (!dayCfg || !dayCfg.open) continue;
+
+    // Agrupar por lunes de la semana calendario (Lun=0 ... Dom=6)
+    const daysSinceMonday = (parts.dow + 6) % 7;
+    const mondayKey = addDays(dt, -daysSinceMonday);
+    if (!weeksMap.has(mondayKey)) {
+      weeksMap.set(mondayKey, { mondayKey, days: [] });
+    }
+    weeksMap.get(mondayKey).days.push({
+      dateStr: dt,
+      ...parts,
+      isToday: dt === today,
+    });
   }
+
+  return [...weeksMap.values()].map((w, idx) => {
+    const first = w.days[0];
+    const last = w.days[w.days.length - 1];
+    const rangeLabel =
+      first.dateStr === last.dateStr
+        ? `${Number(first.dayNum)} ${first.monthShort}`
+        : first.monthShort === last.monthShort
+        ? `${Number(first.dayNum)} al ${Number(last.dayNum)} ${first.monthShort}`
+        : `${Number(first.dayNum)} ${first.monthShort} — ${Number(last.dayNum)} ${last.monthShort}`;
+
+    let title = `Semana del ${rangeLabel}`;
+    if (idx === 0) title = `Esta semana · ${rangeLabel}`;
+    else if (idx === 1) title = `Próxima semana · ${rangeLabel}`;
+
+    return { ...w, index: idx, title, rangeLabel };
+  });
+}
+
+function renderStep3DateTime(container) {
+  const weeks = getOpenWeeks();
+  let weekIdx = weeks.findIndex((w) => w.days.some((d) => d.dateStr === state.selectedDate));
+  if (weekIdx === -1) {
+    weekIdx = 0;
+    if (weeks[0]?.days[0]) {
+      state.selectedDate = weeks[0].days[0].dateStr;
+    }
+  }
+  const currentWeek = weeks[weekIdx] || { title: 'Sin días disponibles', days: [] };
+  const hasPrev = weekIdx > 0;
+  const hasNext = weekIdx < weeks.length - 1;
 
   let slotsHtml = '';
   if (state.loadingSlots) {
@@ -557,7 +601,7 @@ function renderStep3DateTime(container) {
   } else if (state.availability?.closed) {
     slotsHtml = `<div class="empty-slots">${esc(state.availability.reason)}</div>`;
   } else if (!state.availability || state.availability.slots.length === 0) {
-    slotsHtml = `<div class="empty-slots">No quedan turnos disponibles para este día. Probá otra fecha en la barra superior.</div>`;
+    slotsHtml = `<div class="empty-slots">No quedan turnos disponibles para este día. Elegí otro día o saltá a la semana siguiente.</div>`;
   } else {
     const morning = state.availability.slots.filter((s) => Number(s.time.split(':')[0]) < 15);
     const afternoon = state.availability.slots.filter((s) => Number(s.time.split(':')[0]) >= 15);
@@ -591,27 +635,39 @@ function renderStep3DateTime(container) {
 
   container.innerHTML = `
     <h3 class="step-heading">3. Elegí día y horario</h3>
-    <p class="step-sub">Mostrando disponibilidad real para <strong>${esc(
+    <p class="step-sub">Disponibilidad real para <strong>${esc(
       formatDateLong(state.selectedDate)
-    )}</strong> (anticipación mínima: ${esc(state.settings.minNoticeMinutes)} min).</p>
+    )}</strong> · Turnos cada ${esc(state.settings.slotIntervalMinutes || 30)} min.</p>
 
-    <div class="date-ribbon" id="date-ribbon">
-      ${dates
-        .map(
-          (d) => `
-          <button
-            type="button"
-            class="date-chip ${d.dateStr === state.selectedDate ? 'is-selected' : ''}"
-            data-date="${esc(d.dateStr)}"
-            ${!d.open ? 'disabled title="Cerrado"' : ''}
-          >
-            <span class="date-chip__dow">${esc(d.dowShort)}</span>
-            <span class="date-chip__day tabular-nums">${esc(d.dayNum)}</span>
-            <span class="date-chip__month">${d.open ? esc(d.monthShort) : 'Cerr.'}</span>
-          </button>
-        `
-        )
-        .join('')}
+    <div class="week-picker">
+      <div class="week-nav">
+        <button type="button" class="week-nav__btn" id="btn-week-prev" ${!hasPrev ? 'disabled' : ''}>
+          ← Ant.
+        </button>
+        <div class="week-nav__title">${esc(currentWeek.title)}</div>
+        <button type="button" class="week-nav__btn" id="btn-week-next" ${!hasNext ? 'disabled' : ''}>
+          Sig. →
+        </button>
+      </div>
+
+      <div class="week-days-grid" id="date-ribbon">
+        ${currentWeek.days
+          .map(
+            (d) => `
+            <button
+              type="button"
+              class="date-chip ${d.dateStr === state.selectedDate ? 'is-selected' : ''}"
+              data-date="${esc(d.dateStr)}"
+            >
+              <span class="date-chip__dow">${esc(d.dowShort)}</span>
+              <span class="date-chip__day tabular-nums">${esc(d.dayNum)}</span>
+              <span class="date-chip__month">${d.isToday ? 'Hoy' : esc(d.monthShort)}</span>
+            </button>
+          `
+          )
+          .join('')}
+      </div>
+      <div class="week-picker__note">Lunes y Domingo cerrado · Usá “Sig. →” para ver semanas próximas.</div>
     </div>
 
     <div id="slots-container">${slotsHtml}</div>
@@ -625,6 +681,26 @@ function renderStep3DateTime(container) {
       </button>
     </div>
   `;
+
+  const prevWeekBtn = container.querySelector('#btn-week-prev');
+  if (prevWeekBtn && hasPrev) {
+    prevWeekBtn.addEventListener('click', () => {
+      state.selectedDate = weeks[weekIdx - 1].days[0].dateStr;
+      state.selectedTime = null;
+      updateSummary();
+      loadSlotsForSelectedDate();
+    });
+  }
+
+  const nextWeekBtn = container.querySelector('#btn-week-next');
+  if (nextWeekBtn && hasNext) {
+    nextWeekBtn.addEventListener('click', () => {
+      state.selectedDate = weeks[weekIdx + 1].days[0].dateStr;
+      state.selectedTime = null;
+      updateSummary();
+      loadSlotsForSelectedDate();
+    });
+  }
 
   container.querySelectorAll('[data-date]').forEach((btn) => {
     btn.addEventListener('click', () => {
