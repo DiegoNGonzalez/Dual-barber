@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dual Barber | Barbería en Villa Urquiza — Turnos Online</title>
+    <meta
+      name="description"
+      content="Dual Barber en Av. Olazábal 4235, Villa Urquiza (CABA). Reservá tu turno online con Agustín Placente o Luciano Bersaggi. 5.0 estrellas en Google Maps · 10% OFF en efectivo."
+    />
+    <meta property="og:title" content="Dual Barber — Tu estilo, nuestra prioridad" />
+    <meta
+      property="og:description"
+      content="Reservá tu turno online en Dual Barber (Villa Urquiza). Corte de cabello, barba y asesoramiento personalizado. Calificación 5.0 en Google Maps."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/logo.png" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+
+    <!-- Tipografía editorial fiel al logo DUAL BARBER -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Datos estructurados SEO LocalBusiness / BarberShop -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarberShop",
+        "name": "Dual Barber",
+        "url": "https://www.instagram.com/dual.barberia/",
+        "telephone": "+54-11-7823-5895",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Avenida Olazábal 4235",
+          "addressLocality": "Villa Urquiza, Ciudad Autónoma de Buenos Aires",
+          "postalCode": "C1430BQI",
+          "addressCountry": "AR"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "20:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "81"
+        },
+        "sameAs": [
+          "https://www.instagram.com/dual.barberia/",
+          "https://maps.app.goo.gl/bdrQ5wWH8kNAD1Nz5?g_st=ic"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Navegación fija -->
+    <header class="site-header" id="site-header">
+      <div class="container nav-inner">
+        <a href="#inicio" class="dual-logo" aria-label="Dual Barber — Inicio">
+          <span class="dual-logo__main">DUAL</span>
+          <span class="dual-logo__rule" aria-hidden="true"></span>
+          <span class="dual-logo__sub">BARBER</span>
+        </a>
+
+        <nav aria-label="Navegación principal">
+          <ul class="nav-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#turnos">Turnos online</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#resenas">Reseñas</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="btn btn--outline-light btn--sm" id="btn-open-my-bookings">
+            Mis turnos
+          </button>
+          <a href="#turnos" class="btn btn--primary btn--sm" id="nav-book-cta">Reservar turno</a>
+          <button
+            type="button"
+            class="nav-toggle"
+            id="btn-mobile-menu"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="7" x2="21" y2="7" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="17" x2="21" y2="17" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#servicios" class="mobile-nav-link">Servicios y precios</a>
+      <a href="#turnos" class="mobile-nav-link">Turnos online</a>
+      <a href="#equipo" class="mobile-nav-link">Nuestro equipo</a>
+      <a href="#resenas" class="mobile-nav-link">Reseñas Google</a>
+      <a href="#ubicacion" class="mobile-nav-link">Ubicación y horarios</a>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem">
+        <a href="#turnos" class="btn btn--primary btn--block mobile-nav-link">Reservar turno ahora</a>
+        <button type="button" class="btn btn--outline-light btn--block" id="btn-mobile-my-bookings">
+          Gestionar o cancelar mi turno
+        </button>
+      </div>
+    </div>
+
+    <main>
+      <!-- HERO EDITORIAL -->
+      <section class="hero" id="inicio">
+        <div class="hero__media" aria-hidden="true">
+          <img
+            src="assets/hero-studio.jpg"
+            alt="Interior de barbería moderna con sillas de cuero negro y barra de madera"
+            fetchpriority="high"
+          />
+          <div class="hero__scrim"></div>
+        </div>
+
+        <div class="container">
+          <div class="hero__content">
+            <span class="eyebrow" id="hero-eyebrow">Villa Urquiza · Av. Olazábal 4235</span>
+            <h1 class="hero__title" id="hero-title">
+              Tu estilo,<br />nuestra <em>prioridad.</em>
+            </h1>
+            <p class="hero__subtitle" id="hero-subtitle">
+              En DUAL BARBER buscamos que cada visita sea una experiencia. Atención personalizada,
+              cortes de precisión y un espacio pensado para que te sientas cómodo desde que entrás
+              hasta que salís.
+            </p>
+            <div class="hero__cta-row">
+              <a href="#turnos" class="btn btn--primary" id="hero-book-btn">
+                Reservar turno online
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a href="#servicios" class="btn btn--outline-light">Ver servicios y precios</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de información real en tiempo real -->
+        <div class="hero-strip">
+          <div class="container">
+            <div class="hero-strip__grid">
+              <div class="hero-strip__item">
+                <span class="hero-strip__label">Calificación Google</span>
+                <a href="#resenas" class="hero-strip__value hero-strip__link" id="hero-google-stat">
+                  <span class="star-inline">★★★★★</span>
+                  <span class="tabular-nums">5.0 (81 reseñas)</span>
+                </a>
+              </div>
+              <div class="hero-strip__item">
+                <span class="hero-strip__label">Estado del local</span>
+                <span class="hero-strip__value" id="hero-open-status">
+                  <span class="status-dot"></span>
+                  <span>Martes a Sábado · 11:00 a 20:00</span>
+                </span>
+              </div>
+              <div class="hero-strip__item">
+                <span class="hero-strip__label">Beneficio exclusivo</span>
+                <span class="hero-strip__value" id="hero-discount-stat">
+                  10% OFF abonando en efectivo
+                </span>
+              </div>
+              <div class="hero-strip__item">
+                <span class="hero-strip__label">Ubicación</span>
+                <a href="#ubicacion" class="hero-strip__value hero-strip__link" id="hero-address-stat">
+                  Av. Olazábal 4235, CABA
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 1: SERVICIOS Y PRECIOS -->
+      <section class="section-stone section-pad" id="servicios">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow eyebrow--dark">Carta de servicios</span>
+              <h2 class="section-title">Cortes limpios, <em>sin apuro.</em></h2>
+            </div>
+            <p class="section-lead">
+              Elegí el servicio que mejor va con vos. Todos los turnos se reservan online con al
+              menos 1 hora de anticipación y se abonan directamente en el local.
+            </p>
+          </div>
+
+          <div class="cash-banner" id="cash-banner">
+            <div>
+              <strong>10% de descuento en efectivo</strong> en todos nuestros servicios abonando en
+              el local.
+            </div>
+            <div>Modificá o cancelá sin drama hasta 1 hora antes de tu turno.</div>
+          </div>
+
+          <div class="services-grid" id="services-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: ESTUDIO DE TURNOS ONLINE -->
+      <section class="section-booking section-pad surface-grain" id="turnos">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Agenda directa · Sin registro</span>
+              <h2 class="section-title">Reservá tu turno en <em>segundos.</em></h2>
+            </div>
+            <p class="section-lead">
+              Disponibilidad real de Agustín y Luciano actualizada al instante. Al confirmar recibís
+              tu código para reprogramar o cancelar cuando necesites.
+            </p>
+          </div>
+
+          <div class="booking-layout">
+            <!-- Panel de pasos interactivo -->
+            <div class="booking-panel" id="booking-studio">
+              <div class="steps-bar" role="tablist" aria-label="Pasos de reserva">
+                <button type="button" class="step-tab is-active" data-step="1" id="step-tab-1">
+                  <span class="step-tab__num">1</span>
+                  <span class="step-tab__label">Servicio</span>
+                </button>
+                <button type="button" class="step-tab" data-step="2" id="step-tab-2">
+                  <span class="step-tab__num">2</span>
+                  <span class="step-tab__label">Barbero</span>
+                </button>
+                <button type="button" class="step-tab" data-step="3" id="step-tab-3">
+                  <span class="step-tab__num">3</span>
+                  <span class="step-tab__label">Día y hora</span>
+                </button>
+                <button type="button" class="step-tab" data-step="4" id="step-tab-4">
+                  <span class="step-tab__num">4</span>
+                  <span class="step-tab__label">Tus datos</span>
+                </button>
+              </div>
+
+              <div id="booking-step-body"></div>
+            </div>
+
+            <!-- Resumen lateral fijo -->
+            <aside class="booking-summary" aria-label="Resumen de tu reserva">
+              <h3 class="booking-summary__title">Resumen del turno</h3>
+              <div class="summary-rows">
+                <div class="summary-row">
+                  <span class="summary-row__label">Servicio</span>
+                  <span class="summary-row__val" id="sum-service">Sin elegir</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-row__label">Duración</span>
+                  <span class="summary-row__val tabular-nums" id="sum-duration">—</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-row__label">Profesional</span>
+                  <span class="summary-row__val" id="sum-barber">Sin elegir</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-row__label">Fecha</span>
+                  <span class="summary-row__val" id="sum-date">Sin elegir</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-row__label">Horario</span>
+                  <span class="summary-row__val tabular-nums" id="sum-time">Sin elegir</span>
+                </div>
+              </div>
+
+              <div class="summary-total">
+                <div class="summary-total__main">
+                  <span class="summary-row__label">Valor lista</span>
+                  <span class="summary-total__price tabular-nums" id="sum-price">—</span>
+                </div>
+                <div class="summary-total__cash">
+                  <span id="sum-cash-label">En efectivo (10% OFF)</span>
+                  <strong class="tabular-nums" id="sum-cash-price">—</strong>
+                </div>
+              </div>
+
+              <div class="summary-policy" id="sum-policy">
+                Turnos con al menos 1 hora de anticipación. Podés modificar tu reserva hasta 4 veces
+                o cancelarla sin costo hasta 1 hora antes desde “Mis turnos”.
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: EQUIPO & TRABAJOS REALES -->
+      <section class="section-charcoal section-pad surface-grain" id="equipo">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Quiénes somos</span>
+              <h2 class="section-title">Dos barberos, <em>un mismo estándar.</em></h2>
+            </div>
+            <p class="section-lead" id="about-copy">
+              En DUAL BARBER buscamos que cada visita sea una experiencia. Te ves bien, te sentís
+              mejor.
+            </p>
+          </div>
+
+          <div class="team-grid" id="team-grid"></div>
+
+          <!-- Galería de cortes reales y espacio -->
+          <div class="gallery-block">
+            <div class="gallery-header">
+              <div>
+                <span class="eyebrow">Trabajos reales &amp; estudio</span>
+                <h3 class="section-title" style="font-size: clamp(1.55rem, 2.6vw, 2.2rem)">
+                  Detalle, textura y <em>prolijidad.</em>
+                </h3>
+              </div>
+              <a
+                href="https://www.instagram.com/dual.barberia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--outline-light btn--sm"
+                id="gallery-ig-link"
+              >
+                Seguir en @dual.barberia
+              </a>
+            </div>
+
+            <div class="gallery-grid">
+              <figure class="gallery-item">
+                <img
+                  src="assets/work-fade-1.png"
+                  alt="Taper fade limpio con textura natural realizado en Dual Barber"
+                  loading="lazy"
+                />
+                <figcaption class="gallery-item__caption">Taper Fade &amp; Textura · Trabajo real</figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img
+                  src="assets/work-fade-2.png"
+                  alt="Corte degradado y perfilado de barba realizado en Dual Barber Villa Urquiza"
+                  loading="lazy"
+                />
+                <figcaption class="gallery-item__caption">Corte + Barba · Trabajo real</figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img
+                  src="assets/beard-detail.jpg"
+                  alt="Perfilado de barba con terminación de precisión"
+                  loading="lazy"
+                />
+                <figcaption class="gallery-item__caption">Perfilado de Barba</figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img
+                  src="assets/hero-studio.jpg"
+                  alt="Ambiente de barbería moderna en Villa Urquiza"
+                  loading="lazy"
+                />
+                <figcaption class="gallery-item__caption">Nuestro espacio · Villa Urquiza</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: GOOGLE MAPS & RESEÑAS REALES -->
+      <section class="section-stone section-pad" id="resenas">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow eyebrow--dark">Opiniones reales en Google Maps</span>
+              <h2 class="section-title">Cinco estrellas que <em>se ganan en silla.</em></h2>
+            </div>
+            <p class="section-lead">
+              Nuestra calificación en Google Maps refleja el compromiso diario con cada cliente que
+              pasa por Av. Olazábal 4235.
+            </p>
+          </div>
+
+          <!-- Tarjeta oficial de calificación Google -->
+          <div class="google-summary-card" id="google-summary-card">
+            <div class="google-score">
+              <div class="google-score__num tabular-nums" id="google-rating-num">5.0</div>
+              <div class="google-score__meta">
+                <div class="google-badge-line" id="google-badge-line"></div>
+                <div class="google-stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                <div class="google-count" id="google-review-count">Basado en 81 reseñas en Google</div>
+              </div>
+            </div>
+
+            <div class="rating-bars" aria-hidden="true">
+              <div class="rating-bar-row">
+                <span>5 ★</span>
+                <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 100%"></div></div>
+                <span class="tabular-nums">100%</span>
+              </div>
+              <div class="rating-bar-row">
+                <span>4 ★</span>
+                <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0%"></div></div>
+                <span class="tabular-nums">0%</span>
+              </div>
+              <div class="rating-bar-row">
+                <span>3 ★</span>
+                <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0%"></div></div>
+                <span class="tabular-nums">0%</span>
+              </div>
+            </div>
+
+            <div class="google-summary-actions">
+              <a
+                href="https://maps.app.goo.gl/bdrQ5wWH8kNAD1Nz5?g_st=ic"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--dark btn--sm"
+                id="btn-google-maps-reviews"
+              >
+                Ver todas en Google Maps
+              </a>
+              <a
+                href="https://maps.app.goo.gl/bdrQ5wWH8kNAD1Nz5?g_st=ic"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--outline-dark btn--sm"
+                id="btn-google-write-review"
+              >
+                Dejar mi reseña
+              </a>
+            </div>
+          </div>
+
+          <div class="reviews-grid" id="reviews-grid"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: UBICACIÓN, HORARIOS Y CONTACTO -->
+      <section class="section-pad surface-grain" id="ubicacion" style="background-color: var(--bg-obsidian)">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Encontranos</span>
+              <h2 class="section-title">Te esperamos en <em>Villa Urquiza.</em></h2>
+            </div>
+            <p class="section-lead">
+              A metros de Mariano Acha y Donado, con excelente acceso desde todo Comuna 12.
+            </p>
+          </div>
+
+          <div class="location-grid">
+            <div class="location-info">
+              <div>
+                <div class="info-block__label">Dirección</div>
+                <div class="info-block__title" id="loc-address">Av. Olazábal 4235</div>
+                <div class="info-block__sub" id="loc-reference">
+                  Entre Mariano Acha y Donado · Villa Urquiza, CABA
+                </div>
+              </div>
+
+              <div>
+                <div class="info-block__label">Horarios de atención</div>
+                <div class="hours-table" id="hours-table"></div>
+              </div>
+
+              <div>
+                <div class="info-block__label">Contacto directo</div>
+                <div class="contact-actions" id="contact-actions"></div>
+              </div>
+            </div>
+
+            <div class="map-frame">
+              <iframe
+                id="google-map-iframe"
+                title="Mapa de ubicación Dual Barber en Av. Olazábal 4235, Villa Urquiza"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Dual+Barber+-+Barberia,+Av.+Olaz%C3%A1bal+4235,+C1430BQI+Buenos+Aires&output=embed"
+              ></iframe>
+              <div class="map-frame__bar">
+                <span>Av. Olazábal 4235 · Villa Urquiza, CABA</span>
+                <a
+                  href="https://maps.app.goo.gl/bdrQ5wWH8kNAD1Nz5?g_st=ic"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn--outline-light btn--sm"
+                  id="map-directions-link"
+                >
+                  Cómo llegar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <div class="dual-logo">
+              <span class="dual-logo__main">DUAL</span>
+              <span class="dual-logo__rule" aria-hidden="true"></span>
+              <span class="dual-logo__sub">BARBER</span>
+            </div>
+            <p style="margin-top: 0.9rem; font-size: 0.85rem; color: var(--ink-light-muted); max-width: 320px">
+              Av. Olazábal 4235, entre Mariano Acha y Donado · Villa Urquiza, Buenos Aires.
+            </p>
+          </div>
+
+          <div class="footer-links">
+            <a href="#servicios">Servicios</a>
+            <a href="#turnos">Turnos online</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#resenas">Reseñas Google</a>
+            <a href="#ubicacion">Ubicación</a>
+            <a
+              href="https://www.instagram.com/dual.barberia/"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="footer-ig-link"
+              >Instagram</a
+            >
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Dual Barber · Villa Urquiza, Buenos Aires.</span>
+          <a href="admin.html" class="admin-entry-link" id="footer-admin-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Panel de Gestión Barberos
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL MIS TURNOS (AUTOGESTIÓN DEL CLIENTE) -->
+    <div class="modal-backdrop" id="modal-my-bookings" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title-turnos">
+      <div class="modal">
+        <div class="modal__header">
+          <div>
+            <h2 class="step-heading" id="modal-title-turnos" style="margin-bottom: 0.15rem">
+              Gestionar mi turno
+            </h2>
+            <p style="font-size: 0.84rem; color: var(--ink-light-secondary)">
+              Reprogramá o cancelá sin drama hasta 1 hora antes.
+            </p>
+          </div>
+          <button type="button" class="modal__close" id="btn-close-my-bookings" aria-label="Cerrar">
+            ✕
+          </button>
+        </div>
+
+        <form class="lookup-form" id="lookup-form">
+          <input
+            type="text"
+            class="form-input"
+            id="lookup-input"
+            placeholder="Código (ej. DUAL-6342) o tu WhatsApp"
+            required
+          />
+          <button type="submit" class="btn btn--primary" id="btn-lookup-submit">Buscar</button>
+        </form>
+
+        <div class="lookup-results" id="lookup-results">
+          <p style="font-size: 0.84rem; color: var(--ink-light-muted)">
+            Ingresá el código que recibiste al reservar o el número de WhatsApp con el que agendaste.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
