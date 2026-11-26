@@ -1,0 +1,13 @@
+{
+  "name": "dual-barber-web",
+  "version": "1.0.0",
+  "description": "Sitio web oficial, sistema de turnos online y panel de autogestión para Dual Barber (Villa Urquiza, Buenos Aires).",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

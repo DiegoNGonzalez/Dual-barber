@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Gestión | Dual Barber</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Cormorant+Garamond:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="admin-body">
+    <!-- PANTALLA DE LOGIN PIN -->
+    <section class="login-screen" id="admin-login-screen">
+      <div class="login-card">
+        <div class="dual-logo dual-logo--lg" style="margin: 0 auto">
+          <span class="dual-logo__main">DUAL</span>
+          <span class="dual-logo__rule" aria-hidden="true"></span>
+          <span class="dual-logo__sub">BARBER</span>
+        </div>
+        <p class="login-card__sub">
+          Panel de autogestión para Agustín y Luciano.<br />Ingresá tu PIN para administrar turnos,
+          precios y caja.
+        </p>
+
+        <form class="login-form" id="admin-login-form">
+          <label for="admin-pin-input" class="sr-only">PIN de acceso</label>
+          <input
+            type="password"
+            inputmode="numeric"
+            id="admin-pin-input"
+            class="pin-input"
+            placeholder="••••"
+            maxlength="12"
+            required
+            autocomplete="current-password"
+          />
+          <button type="submit" class="btn btn--accent btn--block" id="btn-admin-login">
+            Ingresar al panel
+          </button>
+        </form>
+
+        <div class="login-hint">
+          PIN inicial de demostración: <strong>2026</strong><br />
+          (Se puede cambiar en cualquier momento desde Configuración)
+        </div>
+
+        <div style="margin-top: 1.4rem">
+          <a href="index.html" class="btn btn--ghost btn--sm">← Volver al sitio público</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- APLICACIÓN ADMIN (OCULTA HASTA LOGIN) -->
+    <div id="admin-app" style="display: none">
+      <!-- Barra móvil de navegación -->
+      <div class="admin-mobile-tabs" id="admin-mobile-tabs">
+        <button type="button" class="pill-btn is-active" data-tab="agenda">Agenda</button>
+        <button type="button" class="pill-btn" data-tab="caja">Caja</button>
+        <button type="button" class="pill-btn" data-tab="servicios">Servicios</button>
+        <button type="button" class="pill-btn" data-tab="equipo">Equipo y Bloqueos</button>
+        <button type="button" class="pill-btn" data-tab="clientes">Clientes</button>
+        <button type="button" class="pill-btn" data-tab="config">Negocio &amp; Google</button>
+      </div>
+
+      <div class="admin-shell">
+        <!-- Sidebar Desktop -->
+        <aside class="admin-sidebar">
+          <div class="admin-sidebar__brand">
+            <div class="dual-logo">
+              <span class="dual-logo__main">DUAL</span>
+              <span class="dual-logo__rule" aria-hidden="true"></span>
+              <span class="dual-logo__sub">BARBER</span>
+            </div>
+            <span class="admin-sidebar__tag">Autogestión Interna</span>
+          </div>
+
+          <nav class="admin-nav" aria-label="Secciones del panel">
+            <button type="button" class="admin-nav__btn is-active" data-tab="agenda">
+              Agenda y turnos
+            </button>
+            <button type="button" class="admin-nav__btn" data-tab="caja">Caja y métricas</button>
+            <button type="button" class="admin-nav__btn" data-tab="servicios">
+              Servicios y precios
+            </button>
+            <button type="button" class="admin-nav__btn" data-tab="equipo">
+              Equipo y bloqueos
+            </button>
+            <button type="button" class="admin-nav__btn" data-tab="clientes">Clientes</button>
+            <button type="button" class="admin-nav__btn" data-tab="config">
+              Negocio &amp; Google Maps
+            </button>
+          </nav>
+
+          <div class="admin-sidebar__footer">
+            <span class="mode-badge" id="storage-mode-badge">Conectado al servidor</span>
+            <a href="index.html" target="_blank" class="btn btn--outline-light btn--sm btn--block">
+              Ver web pública ↗
+            </a>
+            <button type="button" class="btn btn--ghost btn--sm btn--block" id="btn-admin-logout">
+              Cerrar sesión
+            </button>
+          </div>
+        </aside>
+
+        <!-- Área Principal -->
+        <main class="admin-main" id="admin-main-content"></main>
+      </div>
+    </div>
+
+    <!-- MODAL NUEVO TURNO MANUAL (WALK-IN / WHATSAPP) -->
+    <div class="modal-backdrop" id="modal-manual-booking" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal">
+        <div class="modal__header">
+          <div>
+            <h2 class="step-heading" style="margin-bottom: 0.1rem">Nuevo turno manual</h2>
+            <p style="font-size: 0.84rem; color: var(--ink-light-secondary)">
+              Ideal para clientes que agendan por WhatsApp o llegan al local.
+            </p>
+          </div>
+          <button type="button" class="modal__close" id="btn-close-manual" aria-label="Cerrar">✕</button>
+        </div>
+
+        <form id="manual-booking-form">
+          <div class="form-grid">
+            <div class="form-field">
+              <label class="form-label" for="mb-service">Servicio</label>
+              <select class="form-input" id="mb-service" required></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mb-barber">Profesional</label>
+              <select class="form-input" id="mb-barber" required></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mb-date">Fecha</label>
+              <input class="form-input" type="date" id="mb-date" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mb-time">Horario disponible</label>
+              <select class="form-input" id="mb-time" required></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mb-name">Nombre del cliente *</label>
+              <input class="form-input" type="text" id="mb-name" placeholder="Ej. Ezequiel" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mb-phone">WhatsApp</label>
+              <input class="form-input" type="tel" id="mb-phone" placeholder="11 5555 4444" />
+            </div>
+            <div class="form-field form-field--full">
+              <label class="form-label" for="mb-notes">Nota interna (opcional)</label>
+              <input class="form-input" type="text" id="mb-notes" placeholder="Preferencia de corte..." />
+            </div>
+          </div>
+          <div style="margin-top: 1.3rem; display: flex; justify-content: flex-end; gap: 0.65rem">
+            <button type="button" class="btn btn--outline-light btn--sm" id="btn-cancel-manual">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn--accent btn--sm" id="btn-save-manual">
+              Guardar turno
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>
